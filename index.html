@@ -1,0 +1,611 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    <link href="pic/icon.jpg" rel="shortcut icon" type="image/x-icon">
+    <title>Web无障碍的实施技巧</title>
+    <link rel="stylesheet" href="css/home.css">
+    <link rel="stylesheet" href="css/chinese.css">
+	</head>
+
+<body>
+
+	
+	<header class="masthead">
+		<div id="skiptodir" class="skiptodir">
+			<a href="#directory">跳至目录</a>
+		</div>
+		<div class="container">   
+			<span class="icon">&#9997;</span>
+			<h1>Web无障碍的实施技巧</h1>	
+			<p class="lead"></p>
+	<!--			<form id="searchform" action="http://www.baidu.com/baidu">
+			<fieldset>
+				<input name="q">
+				<input value="搜索" type="submit">
+			</fieldset>
+
+			</form> -->
+		</div>
+	</header>
+
+	<!-- http://codeguide.bootcss.com/ -->
+	<!-- http://tool.chinaz.com/tools/urlencode.aspx -->
+	<div class="heading">
+		<h2>说明</h2>
+	</div>
+
+	<div class="section">
+		<div class="col">
+			<h4>该文档：</h4>
+			<ul>
+				<li>用于帮助开发、测试、标准制定人员了解、学习 Web Content Accessibility Guidelines 2.0 (<abbr title="Web内容无障碍指南">WCAG</abbr>) 的实施技巧。</li>
+				<li>所有案例和代码都经过测试，但是不能保证:代码和案例在所有浏览器、辅助工具都适用，以及由于技术的发展，可能导致的案例的有效性。</li>
+				<li>欢迎关注Github上的文档，参与开发或反馈问题。</li>
+			</ul>
+			
+			<p>其它参考文档：</p>
+			<ul>
+				<li><a href="http://www.w3.org/TR/WCAG20/">Web Content Accessibility Guidelines (WCAG) 2.0</a></li>
+				<li><a href="https://www.w3.org/Translations/WCAG20-zh/">W3C中文授权翻译：Web内容无障碍指南 (WCAG) 2.0</a></li>
+			</ul>		
+			<p id="updatetime">更新日期：
+			<script language=Javascript> 
+				var now=new Date() 
+				document.write(1900+now.getYear()+"-"+(now.getMonth()+1)+"-"+now.getDate()) 
+			</script>
+			</p>	
+		</div>
+	</div>		
+
+
+	
+	<div class="heading" id="toc">
+		<h2>目录</h2>
+	</div>
+
+	<div class="section toc" role="directory" id="directory">
+	  <div class="col">
+		<h4><a href="#Perceivable">可感知性</a></h4>
+		<ul>
+			<li><a href="#text-equiv">替代文本</a></li>
+			<li><a href="#media-equiv">时基媒体</a></li>
+			<li><a href="#content-structure-separation">适应性</a></li>
+			<li><a href="#visual-audio-contrast">可辨别性</a></li>
+		</ul>
+	  </div>
+	  <div class="col">
+		<h4><a href="#Operable">可操作性</a></h4>
+		<ul>
+			<li><a href="#keyboard-operation">键盘可访问</a></li>
+			<li><a href="#time-limits">充足的时间</a></li>
+			<li><a href="#seizure">癫痫</a></li>
+			<li><a href="#navigation-mechanisms">可导航性</a></li>
+		</ul>			
+	  </div>
+	   <div class="col">
+		<h4><a href="#Understandable">可理解性</a></h4>
+		<ul>
+			<li><a href="#meaning">可读性</a></li>
+			<li><a href="#consistent-behavior">可预测性</a></li>
+			<li><a href="#minimize-error">辅助输入</a></li>
+
+		</ul>
+	  </div>
+		<div class="col">
+		<h4><a href="#Robust">鲁棒性</a></h4>
+		<ul>
+			<li><a href="#ensure-compat">兼容</a></li>
+		</ul>
+	  </div>
+	</div> <!-- 目录 D-->
+
+	<div class="heading" id="Perceivable">
+		<h2>可感知性</h2>
+		<p>--- 信息和用户界面组件必须以可感知的方式呈现给用户</p>
+	</div>
+
+	<div class="section" id="text-equiv">
+		<div class="col">
+		<h3>替代文本</h3>
+		<p>为所有非文本内容提供替代文本</p>
+		<ul>
+			<li>非文本内容可通过简短文字说明：</li>
+				<ul>
+					<li>使用<code>aria-label</code>、<code>alt</code>、<code>aria-labelledby</code>为元素添加标签或属性</li>
+				</ul>
+			<li>非文本内容需要较长的文字描述：</li>
+				<ul>
+					<li>使用<code>aria-describedby</code>、<code>longdesc</code>为元素添加较长文字描述</li>
+				</ul>
+			<li>如果非文本内容是一个验证码</li>
+				<ul>
+					<li>提供一段文本替代文字说明图像目的，<span class="s"><strong>并且</strong></span>，</li>
+					<li>确保同一页面中包含其它感官可以接受的验证码形式。</li>
+				</ul>
+			<li>如果非文本内容一个装饰性内容</li>
+				<ul>
+					<li>设置<code>alt</code>为空</li>
+					<li>在CSS中设置装饰图</li>
+				</ul>
+			<li>其它情况：</li>
+				<ul>
+					<li>如果非文本内容是一个控件，或者接受用户输入，请<a href="example_3.html">参考：HTML中的标准控件和链接</a>，了解控件类型及使用方法</li>
+					<li>如果非文本内容是一个<a href="#media-equiv">时基媒体，阅读下节内容</a></li>
+				</ul>
+		</ul>
+		<p><a href="example_1.html#alt">案例一：使用<code>alt</code>为<code>img</code>元素添加标签</a></p>
+		<p><a href="example_1.html#longdex">案例二：使用<code>longdesc</code>给<code>img</code>元素添加大段描述</a></p>
+		<p><a href="example_1.html#aria-label">案例三：使用<code>aria-label</code>为<code>img</code>元素添加标签</a></p>
+		<p><a href="example_1.html#aria-labelledby">案例四：使用<code>aria-labelledby</code>为控件添加标签</a></p>
+		</div>
+		
+		<div class="col">
+			<div class="highlight">	
+				<pre>
+				<code class="html">
+<span class="c">&lt;!-- alt --&gt;</span>		
+<span class="nt">&lt;img src=&quot;sample/sample_1_1.jpg&quot; <span class="s">alt=&quot;天安门&quot;</span>&gt;</span>
+				</code>
+				</pre>	
+			
+				<pre>
+				<code>
+<span class="c">&lt;!-- longdesc --&gt;</span>
+<span class="nt">&lt;img src=&quot;pic/sample/sample_1_1.jpg&quot; 
+<span class="s">alt=&quot;&quot; longdesc=&quot;example_2.html#example_1&quot;</span>&gt;</span>
+				</code>
+				</pre>	
+			
+				<pre>
+				<code class="html">
+<span class="c">&lt;!-- aria-label --&gt;</span>
+<span class="nt">&lt;input type=&quot;text&quot; <span class="s">aria-label=&quot;搜索&quot;</span> &gt;</span>
+				</code>
+				</pre>
+			</div>
+		</div>
+	</div> <!-- 替代文本 D-->
+
+	<div class="section" id="media-equiv">
+		<div class="col">
+			<h3>时基媒体</h3>
+			<p>为时基媒体提供替代</p>
+			<ul>
+				<li>为预录的纯音频或纯视频提供替代</li>
+					<ul>
+						<li>预录的纯音频：提供内容脚本；</li>
+						<li>预录的纯视频：提供内容脚本，或者提供音频描述表达内容；</li>
+					</ul>
+				<li>预录的时基媒体提供字幕或者内容脚本</li>
+				<li>为直播的音频内容提供等效字幕</li>
+				<li>为预录的纯视频提供音频介绍</li>
+			</ul>	
+			<p><a href="accessible_media_1.html">案例一：包含有Closed Caption的音视频文件</a></p>
+			<p><a href="accessible_media_2.html">案例二：包含有情景字幕和交互式字幕的音视频文件</a></p>
+		</div>
+		
+		<div class="col">
+			<div class="highlight">
+				<pre>
+				<code class="html">
+<span class="c">&lt;!-- WebVTT格式的字幕 --&gt;</span>
+<span class="nt">&lt;video poster=&quot;mp4/Monty.jpg&quot; controls width=&quot;50%&quot;&gt;
+  &lt;source src=&quot;video/Monty.mp4&quot;  type=&quot;video/mp4&quot;&gt;
+  &lt;source src=&quot;video/Monty.webm&quot; type=&quot;video/webm&quot;&gt;
+  &lt;track id=&quot;track1&quot; label=&quot;English&quot; 
+  <span class="s">src=&quot;tracks/Monty_subs_en.vtt&quot;</span> 
+  kind=&quot;subtitles&quot; srclang=&quot;en&quot; default&gt;
+&lt;/video&gt;</span>
+				</code>
+				</pre>		
+			</div>
+		</div>
+	</div> <!-- 时基媒体 -->
+
+	<div class="section" id="content-structure-separation">
+		<div class="col">
+			<h3>适应性</h3>
+			<p>创建可用不同方式呈现的内容</p>
+			<ul>
+				<li>信息、结构或关系，可以被辅助技术获取</li>
+					<ul>
+						<li>使用<code>h1</code> - <code>h6</code>定义标题头</li>
+						<li>使用<code>ol</code>、<code>ul</code>、<code>dl</code>定义列表或者组织链接</li>
+						<li>使用<code>caption</code>和<code>summary</code>为数据表格定义标题和给出详细介绍</li>
+						<li>使用<code>ARIA</code>定义网页区域</li>
+						<li>使用<code>id</code>、<code>header</code>关联数据表格中的数据单元</li>
+
+					</ul>
+			</ul>
+			<blockquote>
+				<p>注意：如果使用的技术不能被辅助技术获取，应该通过足够的文字信息说明，例如，某段文字通过视觉变化传递信息的不同，应该同时考虑增加文字，用以强调、突出信息的变化。
+				</p>
+				<p>
+				参考<a href="#visual-audio-contrast">下节内容，了解更容易通过视觉接受信息</a>。
+				</p>
+			</blockquote>
+			<p><a href="example_1.html#role">案例一：ARIA定义网页区域</a></p>
+			<p><a href="example_2.html#tabindex">案例二：在数据表格中使用<code>caption</code>和<code>summary</code></a></p>
+		</div>
+
+		<div class="col">
+			<div class="highlight">
+				<pre>
+				<code>
+<span class="c">&lt;!-- 数据表格中的id和header --&gt;</span>		
+<span class="nt">&lt;table&gt;
+  &lt;tr&gt;
+	&lt;th rowspan=&quot;2&quot; <span class="s">id</span>=&quot;h&quot;&gt;项目组&lt;/th&gt;
+	&lt;th colspan=&quot;3&quot; <span class="s">id</span>=&quot;e&quot;&gt;测试组&lt;/th&gt;
+	&lt;th colspan=&quot;3&quot; <span class="s">id</span>=&quot;p&quot;&gt;商务组&lt;/th&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+	&lt;th <span class="s">id</span>=&quot;e1&quot; <span class="s">headers</span>=&quot;e&quot;&gt;团队A&lt;/th&gt;
+	&lt;th <span class="s">id</span>=&quot;e2&quot; <span class="s">headers</span>=&quot;e&quot;&gt;团队B&lt;/th&gt;
+	&lt;th <span class="s">id</span>=&quot;ef&quot; <span class="s">headers</span>=&quot;e&quot;&gt;团队C&lt;/th&gt;
+	&lt;th <span class="s">id</span>=&quot;p1&quot; <span class="s">headers</span>=&quot;p&quot;&gt;团队A&lt;/th&gt;
+	&lt;th <span class="s">id</span>=&quot;p2&quot; <span class="s">headers</span>=&quot;p&quot;&gt;团队B&lt;/th&gt;
+	&lt;th <span class="s">id</span>=&quot;pf&quot; <span class="s">headers</span>=&quot;p&quot;&gt;团队C&lt;/th&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+	&lt;td <span class="s">headers</span>=&quot;h&quot;&gt;15%&lt;/td&gt;
+	&lt;td <span class="s">headers</span>=&quot;e e1&quot;&gt;15%&lt;/td&gt;
+	&lt;td <span class="s">headers</span>=&quot;e e2&quot;&gt;15%&lt;/td&gt;
+	&lt;td <span class="s">headers</span>=&quot;e ef&quot;&gt;20%&lt;/td&gt;
+	&lt;td <span class="s">headers</span>=&quot;p p1&quot;&gt;10%&lt;/td&gt;
+	&lt;td <span class="s">headers</span>=&quot;p p2&quot;&gt;10%&lt;/td&gt;
+	&lt;td <span class="s">headers</span>=&quot;p pf&quot;&gt;15%&lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/table&gt;</span>					
+				</code>
+				</pre>
+			</div>
+		</div>
+	</div> <!-- 适应性 -->
+
+
+	<div class="section" id="visual-audio-contrast">
+		<div class="col">
+			<h3>可辨别性</h3>
+			<p>更容易地通过视觉或听觉接受信息</p>
+			<ul>
+				<li>颜色不作为传递重要信息的唯一元素</li>
+					<ul>
+						<li>包含足够的文本线索</li>
+						<li>配上相应的符号或图案表达含义</li>
+					</ul>
+				<li>避免音频的自动播放</li>
+					<ul>
+						<li>音频播放不超过3秒，或3秒内自动关闭</li>
+						<li>只在用户激活的情况下播放音频</li>
+					</ul>
+				<li>视觉对比度 4.5：1</li> 
+					<ul>
+						<li>提供一个可以切换对比度的控件</li>
+					</ul>
+				<li>无需辅助技术，文本大小可以放大200%</li> 
+				<li>小心使用文本图像</li>
+			</ul>	
+			<p><a href="http://webaim.org/resources/contrastchecker/">测试工具：Color Contrast Checker</a></p>
+			<p><a href="example_1.html#changeColors">案例：可切换对比度的控件</a></p>
+		</div>
+		<div class="col">
+			<div class="highlight">
+				<pre>
+				<code>
+<span class="c">&lt;!-- 足够的文本线索 --&gt;</span>
+<span class="nt">&lt;label for=&quot;lastname&quot; class=&quot;required&quot;&gt;
+姓名 <span class="s">(必填):</span> 
+&lt;/label&gt;
+&lt;input id=&quot;lastname&quot; type=&quot;text&quot; /&gt;
+&lt;style type=&quot;text/css&quot;&gt;
+  .required {
+	color:red;
+  }
+&lt;/style&gt;</span>			
+				</code>
+				</pre>
+			
+			</div>
+		</div>
+
+	</div> <!-- 可辨别性 -->
+
+	<div class="heading" id="Operable">
+	  <h2>可操作性</h2>
+	  <p>--- 用户界面组件和导航必须可操作</p>
+	</div>
+
+	<div class="section" id="keyboard-operation">
+		<div class="col">
+			<h3>键盘可访问</h3>
+			<p>确保所有功能都能通过键盘来操作</p>
+			<ul>
+				<li>内容和功能可被键盘操作</li>
+				<li>对每次键击没有时限要求</li>
+				<li>没有键盘陷阱</li>
+					<ul>
+						<li>能够通过键盘的tab键导航整个页面</li>
+						<li>键盘焦点不会陷入页面中的某个组件或插件</li>
+					</ul>
+			</ul>
+			<p><a href="example_3.html">参考：HTML中的标准控件和链接</a></p>	
+		</div>
+		<div class="col">
+			<div class="highlight">
+				<pre>
+				<code>
+<span class="c">&lt;!-- 键盘可访问 1 --&gt;</span>	
+<span class="sx">&lt;a onmouseover=&quot;swapImage(&#39;hours&#39;,&#39;&#39;,&#39;hours_on.gif&#39;,1)&quot; 
+<span class="s">onfocus=</span>swapImage(&#39;hours&#39;,&#39;&#39;,&#39;hours_on.gif&#39;,1)&quot; 
+onmouseout=&quot;swapImgRestore()&quot; 
+<span class="s">onblur=</span>&quot;swapImgRestore()&quot; href=&quot;#&quot;&gt;
+&lt;img alt=&quot;hours&quot; src=&quot;hours_off.gif&quot; border=&quot;0&quot; name=&quot;hours&quot;&gt;
+&lt;/a&gt;</span>
+				</code>
+				</pre>
+				
+				<pre>
+				<code>
+<span class="c">&lt;!-- 键盘可访问 2 --&gt;</span>					
+<span class="sx">&lt;img onclick=&quot;nextPage();&quot; <span class="s">onkeypress=</span>&quot;nextPage();&quot;  src=&quot;arrow.gif&quot;  alt=&quot;下一页&quot;&gt;</span>				
+				</code>
+				</pre>
+			</div>
+		</div>
+	</div>
+
+	<div class="section" id="time-limits">
+		<div class="col">
+			<h3>充足的时间</h3>
+			<p>为用户提供足够的时间用以阅读和使用内容</p>
+			<ul>
+				<li>如有内容设置有时间限制，确保时间限制是可以关闭、调整、延长</li>
+				<li>移动、闪动、滚动、自动更新的信息，可能影响用户使用网页内容，这类信息应该可以被暂停、停止、隐藏</li>
+			</ul>	
+		</div>
+	</div>
+
+
+	<div class="section" id="seizure">
+		<div class="col">
+			<h3>癫痫</h3>
+			<p>不要设计会导致癫痫发作的内容</p>
+			<ul>
+				<li>确保没有任何组件会在1秒钟内闪动3次</li>
+				<li>尽可能保证闪动区域在较小的范围内</li>
+			</ul>
+			<p><a href="http://trace.wisc.edu/peat/">测试工具：PEAT</a></p>		
+		</div>
+	</div>
+
+	<div class="section" id="navigation-mechanisms">
+		<div class="col">
+			<h3>可导航性</h3>
+			<p>提供帮助用户导航、查找内容、并确定其位置的方法</p>
+			<ul>
+				<li>提供机制绕过重复模块</li>
+				<li>提供清晰的网页标题，即<code>title</code></li>
+				<li>能够通过键盘顺序导航</li>
+				<li>提供多种方式帮助用户查找到某一个页面</li>
+					<ul>
+						<li>网站地图</li>
+						<li>搜索</li>
+						<li>目录</li>
+					</ul>
+				<li>标题（<code>H1</code>）和标签（<code>label</code>）具有描述性</li>
+				<li>键盘焦点可以视觉呈现</li>
+			</ul>
+			<p><a href="example_2.html#tabindex">案例一：通过<code>tabindex</code>顺序导航</a></p>
+		</div>
+		<div class="col">
+		<div class="highlight">
+			<pre>
+			<code>
+<span class="c">&lt;!-- 绕过重复模块 --&gt;</span>
+<span class="nt">&lt;div id=&quot;skiptodir&quot; class=&quot;skiptodir&quot;&gt;
+<span class="s">&lt;a href=&quot;#directory&quot;&gt;跳至目录&lt;/a&gt;</span>
+&lt;/div&gt;</span>	
+			</code>
+			</pre>
+			
+			<pre>
+			<code>
+<span class="c">&lt;!-- CSS用于键盘焦点的视觉呈现 --&gt;</span>
+<span class="ni">a:hover,input:hover {
+  text-decoration: underline;
+}
+a:focus,input:focus {
+	outline: 2px solid #e3de7b;
+}		</span>
+			</code>
+			</pre>
+			
+			
+		</div>
+		</div>
+	</div>
+
+	<div class="heading" id="Understandable">
+	  <h2>可理解性</h2>
+	  <p>--- 信息和用户界面操作必须是可理解的</p>
+	</div>
+
+	<div class="section" id="meaning">
+		<div class="col">
+			<h3>可读性</h3>
+			<p>文本内容可读，可理解</p>
+			<ul>
+				<li>使用<code>lang</code>属性</li>
+				<li>局部语言，可以被用户代理识别</li>
+			</ul>	
+			<p><a href="example_1.html#abbr">案例：<code>lang</code>和<code>abbr</code>标签</a></p>
+		</div>
+		<div class="col">
+			<div class="highlight">
+				<pre>
+				<code class="html">
+<span class="c">&lt;!-- 使用 lang --&gt;</span>			
+<span class="nt">&lt;html <span class="s">lang=&quot;zh-CN&quot;</span>&gt;
+  &lt;head&gt;
+   &lt;meta <span class="s">charset=&quot;UTF-8&quot;</span>&gt;
+   &lt;title&gt;Web无障碍的编码技巧&lt;/title&gt;
+  &lt;/head&gt;</span>			
+				</code>
+				</pre>
+			</div>
+		</div>
+	</div>
+
+	<div class="section" id="consistent-behavior">
+		<div class="col">
+			<h3>可预测性</h3>
+			<p>让网页以可预见的方式呈现和操作</p>
+			<ul>
+				<li>用户界面组件被聚集时，不会产生内容或上下文的改变</li>
+				<li>提供一个按钮以执行动作</li>
+				<li>重复组件保持相同顺序导航机制</li>
+				<li>一致功能的组件能够被一致性识别</li>
+			</ul>	
+		</div>
+	</div>
+
+	<div class="section" id="minimize-error">
+		<div class="col">
+			<h3>辅助输入</h3>
+			<p>帮助用户避免和纠正错误</p>
+			<ul>
+				<li>定义错误并以文本形式告知</li>
+				<li>为需要用户输入的内容提供标签和说明</li>
+				<li>提供建议性的修正文本</li>
+				<li>尽可能的预防错误</li>
+					<ul>
+						<li>涉及法律、财务：在递交表单前，用户有机会修改或检查错误</li>
+						<li>信息删除：用户有机会恢复删除的信息，或要求用户再次确认该动作</li>
+						<li>考试：用户在递交前，有机会修改或检查错误</li>	
+					</ul>
+			</ul>
+			<p><a href="example_1.html#alertdialog">案例一：使用<code>alertdialog</code>定义问题并通知</a></p>
+			<p><a href="example_4.html#invalid">案例二：<code>aria-invalid</code>和<code>aria-required</code>的用法</a></p>			
+		</div>
+		
+		<div class="col">
+			
+		</div>
+
+	</div>
+
+	<div class="heading" id="robust">
+	  <h2>鲁棒性</h2>
+	  <p>--- 内容必须健壮到可信地被种类繁多的用户代理(包括辅助技术)所解析</p>
+	</div>
+
+	<div class="section" id="ensure-compat">
+		<div class="col">
+		<h3>兼容</h3>
+		<p>--- 最大化兼容当前和未来的用户代理(包括辅助技术)</p>
+		<ul>
+			<li>规范使用HTML</li>
+			<li>确保页面能够被正确解析</li>
+				<ul>
+					<li>标签都有正确的闭合</li>
+					<li><code>id</code>是唯一的</li>
+					<li>确保元素没有冗余的属性</li>
+				</ul>
+			<li>可被辅助技术使用，并被用户代理接受</li>
+				<ul>
+					<li>HTML</li>
+						<ul>
+							<li>参考：<a href="example_3.html">HTML中的标准控件和链接</a></li>
+							<li>使用<code>label</code>元素关联表单控件文本标签</li>
+							<li>表单控件的不能使用<code>label</code>元素，使用<code>title</code>属性</li>
+						</ul>
+					<li>脚本语言或其它语言在HTML中重构的控件</li>
+						<ul>
+							<li>通过<code>aria-labelledby</code>提供控件名称</li>
+						</ul>
+					<li>控件通过编程语言自绘</li>
+						<ul>
+							<li>通过WAI-ARIA的<code>role</code>让控件可被辅助技术使用</li>
+							<li>通过<code>aria-labelledby</code>提供控件名称</li>
+						</ul>		
+				</ul>
+		</ul>
+		<p><a href="http://validator.w3.org/">查验代码可用性：W3C Markup Validation Service</a></p>
+		</div>
+		
+		<div class="col">
+			<div class="highlight">
+				<pre>
+				<code>
+<span class="c">&lt;!-- aria-labelledby提供控件名称 --&gt;</span>				
+<span class="nt">&lt;input name=&quot;searchtxt&quot; type=&quot;text&quot; <span class="s">aria-labelledby</span>=&quot;searchbtn&quot;&gt;
+&lt;input name=&quot;searchbtn&quot; id=&quot;searchbtn&quot; type=&quot;submit&quot; value=&quot;搜索&quot;&gt;</span>				
+				</code>
+				</pre>
+				
+				<pre>
+				<code>
+<span class="c">&lt;!-- role 说明控件类型 --&gt;</span>				
+<span class="nt">&lt;div role=&quot;toolbar&quot;
+   tabindex=&quot;0&quot; 
+   id=&quot;customToolbar&quot; 
+   onkeydown=&quot;return optionKeyEvent(event);&quot;
+   onkeypress=&quot;return optionKeyEvent(event);&quot;
+   onclick=&quot;return optionClickEvent(event);&quot;
+   onblur=&quot;hideFocus()&quot;
+   onfocus=&quot;showFocus()&quot;
+&gt; 
+&lt;img src=&quot;img/btn1.gif&quot; 
+   <span class="s">role</span>=&quot;button&quot; 
+   tabindex=&quot;-1&quot; 
+   alt=&quot;主页&quot; 
+   id=&quot;b1&quot; 
+   title=&quot;主页&quot;&gt;
+&lt;img src=&quot;img/btn2.gif&quot; 
+   <span class="s">role</span>=&quot;button&quot; 
+   tabindex=&quot;-1&quot; 
+   alt=&quot;刷新&quot; 
+   id=&quot;b2&quot; 
+   title=&quot;刷新&quot;&gt;
+&lt;img src=&quot;img/btn3.gif&quot; 
+   <span class="s">role</span>=&quot;button&quot; 
+   tabindex=&quot;-1&quot; 
+   alt=&quot;帮助&quot; 
+   id=&quot;b3&quot; 
+   title=&quot;帮助&quot;&gt; 
+&lt;/div&gt;</span>					
+				</code>
+				</pre>
+			
+			
+			</div>
+		
+		
+		
+		
+		</div>
+	</div>
+	
+
+
+<!------------------------------------------------------------ XXXX -------------------------------------->
+
+
+
+<footer class="footer">
+	<p></p>
+	<p></p>
+</footer>
+
+
+<script type="text/javascript">
+
+</script>
+
+
+  </body>
+</html>

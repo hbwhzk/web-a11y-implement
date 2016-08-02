@@ -1,0 +1,137 @@
+﻿<!DOCTYPE html>
+<html lang="Zh_CN">
+<head>
+
+<title>HTML的标准控件和链接</title>
+</head>
+
+<body>
+	<h2>HTML的标准控件和链接</h2>
+	<br/>
+	<hr/>
+
+
+<div id="link">
+	<h3>链接</h3>
+	<p>链接案例一：链接中的文本即可说明链接目的</p>
+	<a href="https://www.w3.org/">W3C</a>
+<hr style="border:1 dashed #987cb9" width="80%" align="left">
+ 
+	<p>链接案例二：链接没有文本，只有图形，通过alt属性获取链接目的</p>
+	<a href="https://www.w3.org/"><img src="pic/W3C.png" alt="W3C"></a>
+<hr style="border:1 dashed #987cb9" width="80%" align="left">
+
+	<p>链接案例三：链接文本和图形的alt属性都可以被AT获取 </p>
+	<a href="https://www.w3.org/"><img src="pic/W3C.png" alt=""><br>W3C链接</a><br> 
+
+</div>
+
+<hr>
+
+<div id="button">
+	<h3>按钮</h3>
+	<p>按钮案例一：通过按钮中的文本获取控件功能</p>
+	<button>保存</button><br> 
+<hr style="border:1 dashed #987cb9" width="80%" align="left">	
+
+	<p>按钮案例二：通过按钮中的value值获取控件功能</p>	
+	<input type="button" value="保存" /> 
+	<input type="submit" value="提交" /> 
+	<input type="reset" value="重置" />  
+<hr style="border:1 dashed #987cb9" width="80%" align="left">
+
+	<p>按钮案例三：按钮是一个图片，从alt中获取控件功能</p>	
+	<input type="image" src="pic/button.png" alt="提交" />
+<hr style="border:1 dashed #987cb9" width="80%" align="left">
+	
+	<p>按钮案例四：按钮是一个图片，也可从title中获取控件功能</p>	
+	<input type="image" src="pic/button.png" title="提交" /> <!--  -->
+<hr style="border:1 dashed #987cb9" width="80%" align="left">
+	
+	<p>按钮案例五：按钮是一个图片，结合alt和title标签，让AT获取更多信息</p>
+	<input type="image" src="pic/button.png" alt="提交" title="提交此表单" /> 
+</div>
+
+<hr>
+
+<div id="text">
+	<h3>文本域</h3>
+	<p>文本域案例一：从label从取值，也从value取值</p>
+	<label for="text_1">水果类型</label>
+	<input id="text_1" type="text" value="苹果"> 
+<hr style="border:1 dashed #987cb9" width="80%" align="left">
+
+	<p>文本域案例二：从title中取值</p>
+	<input id="text_1" type="text" title="水果类型">
+</div>
+
+<hr>
+
+<div id="checkbox">
+	<h3>复选框</h3>
+	<p>复选框案例：通过label获取信息</p>
+	<label for="cb_1">香蕉</label> 
+	<input id="cb_1" type="checkbox" checked="checked">
+	<label for="cb_2"></label>苹果</label> 
+	<input id="cb_2" type="checkbox" ><br>
+</div>
+
+<hr>
+
+<div id="radio">
+	<h3>单选框</h3>
+	<p>单选框案例：通过label获取信息</p>
+	<input type="radio" name="color" id="r1" checked="checked"/><label for="r1">红</label>
+	<input type="radio" name="color" id="r2" /><label for="r2">绿</label>
+	<input type="radio" name="color" id="r3" /><label for="r3">蓝</label>	
+</div>
+
+<hr>
+
+<div id="select">
+	<h3>列表框</h3>
+	<p>列表框案例一</p>
+	<label for="s1">数字选择</label>
+	<select id="s1" size="1">
+	<option>1</option>
+	<option selected="selected">2</option>
+	<option>3</option>
+	</select>
+<hr style="border:1 dashed #987cb9" width="80%" align="left">
+	
+	<p>列表框案例二</p>
+	<select id="s1" title="Numbers" size="1">
+	<option>1</option>
+	<option selected="selected">2</option>
+	<option>3</option>
+	</select> 
+</div>
+
+<hr>
+
+<div id="textarea">
+	<h3>文本域</h3>
+	<p>文本域案例一</p>
+	<label for="ta_1">请在此输入建议</label><br>
+	<textarea id="ta_1" >太热了，开空调</textarea>
+<hr style="border:1 dashed #987cb9" width="80%" align="left">
+	
+	<p>文本域案例二</p>
+	<textarea id="ta_1" title="请在此输入建议" >太热了，开空调</textarea> <!-- AT读取title -->
+</div>
+
+<hr>
+
+<div>
+	<h3>自定义控件</h3>
+	<p>自定义控件案例</p>
+	<fieldset width="80%">
+	<legend>选择一个颜色</legend> 
+		<input id="red" type="radio" name="color" value="red" /><label for="red">红</label><br /> 
+		<input id="blue" type="radio" name="color" value="blue" /><label for="blue">蓝</label><br /> 
+		<input id="green" type="radio" name="color" value="green" /><label for="green">绿</label> 
+	</fieldset>
+</div>
+	
+</body>
+</html>

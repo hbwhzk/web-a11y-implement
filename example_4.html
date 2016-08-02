@@ -1,0 +1,111 @@
+﻿
+<!DOCTYPE html>
+<html lang="Zh_CN">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+		<title>案例演示_4</title>
+		<script src="http://code.jquery.com/jquery-1.10.2.js"></script> 
+		<style type="text/css">
+		label.failed {
+			text-decoration: underline #f00;
+		}
+		</style>
+<script>
+$(document).ready(function(e) {
+	$('#signup').submit(function() {
+		$('#errText').html('');
+$('input').removeAttr("aria-invalid");
+$('label').removeAttr("class");
+var eFlag = 0;
+		if ($('#first').val() === '') {
+			$('#first').attr("aria-invalid", "true");
+$("label[for='first']").addClass('failed');
+eFlag++;
+		}
+		if ($('#jobtit').val() === '') {
+			$('#jobtit').attr("aria-invalid", "true");
+$("label[for='jobtit']").addClass('failed');
+eFlag++;
+		} 
+		if ($('#email').val() === '') {
+			$('#email').attr("aria-invalid", "true");
+$("label[for='email']").addClass('failed');
+eFlag++;
+		} 
+if (eFlag > 0) {
+		$('#errText').html("注意，" + eFlag + "个必填选项未完成，请重新填写");
+}
+		return false;
+	});
+});
+
+
+</script>	
+	</head>
+
+	<body>
+		<div id="invalid">
+			<h2>重点: aria-invalid定义错误的表单域, aria-required说明表单域为必填 </h2>
+			<p id="errText" aria-live="assertive"></p>
+			<form name="signup" id="signup" method="post" action="#">
+				<p>
+					<label for="first">姓名 (必填)</label><br>
+					<input type="text" name="first" id="first" aria-required="true">
+				</p>
+				  
+				<p>
+					<label for="jobtit">职位 (必填)</label><br>
+					<input type="text" name="jobtit" id="jobtit">
+				</p>
+				 
+				<p>
+					<label for="email">电邮地址 (必填)</label><br>
+					<input type="text" name="email" id="email" aria-required="true">
+				</p>
+				 
+				<p>
+					<input type="submit" name="button" id="button" value="提交">
+				</p>
+			</form>
+		
+		</div>
+		
+		<div id="labelledby">
+		<h2>重点：aria-labelledby提供控件名称</h2>
+		<input name="searchtxt" type="text" aria-labelledby="searchbtn">
+		<input name="searchbtn" id="searchbtn" type="submit" value="搜索">
+		</div>
+
+<div role="toolbar"
+   tabindex="0" 
+   id="customToolbar" 
+   onkeydown="return optionKeyEvent(event);"
+   onkeypress="return optionKeyEvent(event);"
+   onclick="return optionClickEvent(event);"
+   onblur="hideFocus()"
+   onfocus="showFocus()"
+> 
+<img src="img/btn1.gif" 
+   role="button" 
+   tabindex="-1" 
+   alt="主页" 
+   id="b1" 
+   title="主页">
+<img src="img/btn2.gif" 
+   role="button" 
+   tabindex="-1" 
+   alt="刷新" 
+   id="b2" 
+   title="刷新">
+<img src="img/btn3.gif" 
+   role="button" 
+   tabindex="-1" 
+   alt="帮助" 
+   id="b3" 
+   title="帮助"> 
+</div>  
+                        
+
+
+	</body>
+</html>
